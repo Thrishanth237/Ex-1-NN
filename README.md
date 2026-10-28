@@ -1,7 +1,7 @@
-<H3> NAME  : THRISHANTH E</H3>
-<H3> REGISTER NO: 212224230291</H3> 
+<H3>ENTER YOUR NAME : THRISHANTH E</H3>
+<H3>ENTER YOUR REGISTER NO. : 212224230291</H3>
 <H3>EX. NO.1</H3>
-<H3>DATE: 27-10-2027 </H3>
+<H3>DATE</H3>
 <H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
 
 ## AIM:
@@ -38,73 +38,67 @@ STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
 ```python
-import pandas as pd
+# Importing Libraries
+import io
 from sklearn.preprocessing import StandardScaler
-
-df = pd.read_csv("movie_ratings.csv")
-print(df.head())
-
-print("\n2. Dataset Information")
-print(df.info())
-
-print("\n3. Missing Values Before Cleaning")
-print(df.isnull().sum())
-df.dropna(inplace=True)
-print("Missing values removed.")
-
-print("\n4. Duplicate Values Before Cleaning")
-print(df.duplicated().sum())
-df.drop_duplicates(inplace=True)
-print("Duplicate rows removed.")
-
-print("\n5. Removing Unnecessary Features")
-df.drop(columns=['unnecessary_column'], inplace=True, errors='ignore')
-
-print("\n5. Standardization using StandardScaler")
-cols = df.select_dtypes(include="number").columns
-scaler = StandardScaler()
-df[cols] = scaler.fit_transform(df[cols])
-print(df.head())
-
-print(df.shape)
-
-
-print("Splitting X and y")
-
-X = df.drop("Rating", axis=1)
-y = df["Rating"]
-
-print("\nInput Features (X):")
-print(X.head())
-
-print("\nTarget Variable (y):")
-print(y.head())
-
-print("\nX Shape:", X.shape)
-print("y Shape:", y.shape)
-
-
-
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
-
-print("Train-Test Split")
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-
-print("X_train Shape:", X_train.shape)
-print("X_test Shape:", X_test.shape)
-print("y_train Shape:", y_train.shape)
-print("y_test Shape:", y_test.shape)
-
+df=pd.read_csv("Churn_Modelling.csv",index_col="RowNumber")         # Read the dataset from drive
+df.head()
 ```
+
+```python
+ # Finding Missing Values
+df.isnull().sum()
+```
+
+```python
+ # Check For Duplicates
+print(df.duplicated().sum())
+```
+
+```python
+# Remove Unnecessary Columns
+df=df.drop(['Surname', 'Geography','Gender'], axis=1) 
+# Normalize the dataset
+scaler=StandardScaler()                                
+df=pd.DataFrame(scaler.fit_transform(df))
+df.head()
+```
+
+```python
+# Split the dataset into input and output
+X,Y=df.iloc[:,:-1].values ,df.iloc[:,-1].values  
+
+ # Splitting the data for training & Testing
+print('Input:\n',X,'\nOutput:\n',Y) 
+Xtrain,Xtest,Ytrain,Ytest = train_test_split(X, Y, test_size=0.2)  
+
+# X Train and Test
+print("Xtrain:\n" ,Xtrain, "\nXtest:\n", Xtest)    
+
+# Y Train and Test
+print("\nYtrain:\n" ,Ytrain, "\nYtest:\n", Ytest)                   
+```
+
+
 ## OUTPUT:
-<img width="805" height="811" alt="image" src="https://github.com/user-attachments/assets/3db9627d-bcd1-4c2c-8567-ba02033c3f3c" />
+### DATASET:
+<img width="1237" height="268" alt="image" src="https://github.com/user-attachments/assets/3fbe55e6-6f00-42d3-ad53-ad6cd69c122c" />
 
-<img width="849" height="566" alt="image" src="https://github.com/user-attachments/assets/1b675e90-73d4-4b32-aa40-f61556aa63b5" />
+### NULL VALUES:
+<img width="241" height="504" alt="image" src="https://github.com/user-attachments/assets/26cd09ee-eab1-4185-af2c-fd5a4442a983" />
 
-<img width="859" height="578" alt="image" src="https://github.com/user-attachments/assets/f156bd2d-410c-4804-878f-8cd542e4f54c" />
 
-<img width="866" height="355" alt="image" src="https://github.com/user-attachments/assets/71f2ca0a-e7c3-4c7c-801f-d265f9c752a8" />
+
+### NORMALIZED DATA:
+<img width="878" height="202" alt="image" src="https://github.com/user-attachments/assets/b22ae1fa-c8d7-4659-bc37-5e8597ce73ca" />
+
+
+### DATA SPLITTING and TRAIN AND TEST DATA:
+<img width="628" height="816" alt="image" src="https://github.com/user-attachments/assets/f70e3de0-0c84-4fd7-9096-627c42efd2e5" />
+
+<img width="592" height="136" alt="image" src="https://github.com/user-attachments/assets/1fd95e6b-eeca-4170-a331-3122e7d39526" />
 
 
 ## RESULT:
